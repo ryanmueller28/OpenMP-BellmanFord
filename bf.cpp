@@ -23,7 +23,7 @@
  */
 int* bellmanFord(const Graph& graph, int src) {
     //*************************************************************************
-    //* WRITE YOUR PARALLEL BELLMAN-FORD CODE HERE
+    //* Parallel Bellman-Ford Algorithm by Ryan Mueller
     //*************************************************************************
 
     //initialize new graph
