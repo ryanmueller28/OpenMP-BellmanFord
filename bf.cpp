@@ -61,7 +61,7 @@ int* bellmanFord(const Graph& graph, int src) {
         }
     }
     
-    // this is a stub; replace with a meaningful return value
+    // return D
     return D;
 }
 
