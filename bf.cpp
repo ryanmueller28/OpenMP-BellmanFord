@@ -30,8 +30,6 @@ int* bellmanFord(const Graph& graph, int src) {
     int V = graph.V;
     int E = graph.E;
 
-    int u, smallV, weight = 0;
-
     int arrD[V];
 
     //intialize values to infinity
@@ -56,18 +54,19 @@ int* bellmanFord(const Graph& graph, int src) {
             int tempW = tempEdge.w;
             int tempV = tempEdge.v;
 
-            if (arrD[i] > (arrD[j] + tempU + tempW))
-            {
-                arrD[i] = arrD[j] + tempU + tempW;
-            }
+            //To Do: add check to ensure int_max doesn't roll over
+            //only care if (arr[j] + tempU + tempW) will roll over with INT_MAX
 
             //relax
+            if (arrD[tempU] != std::numeric_limits<int>::max() && arrD[i] > (arrD[j] + tempU + tempW))
+            {
+                arrD[i] = arrD[j] + tempU + tempW;
+            }       
         }
     }
 
-
     // this is a stub; replace with a meaningful return value
-    return 0;
+    return arrD;
 }
 
 /**
