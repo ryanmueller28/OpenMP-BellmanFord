@@ -30,19 +30,21 @@ int* bellmanFord(const Graph& graph, int src) {
     int V = graph.V;
     int E = graph.E;
 
-    int *arrD[V];
+    int arrD[V];
+    int *D;
+    D = arrD;
 
-    //intialize values to infinity
+    int infinity = std::numeric_limits<int>::max();
+
     for (int i = 0; i < V; i++)
     {
-        *arrD[i] = std::numeric_limits<int>::max();
+        arrD[i] = infinity;
     }
 
     arrD[src] = 0;
 
     // for loop 1, iterate vertices
     // for i in [0, |V| - 1]
-    
     for (int i = 0; i < V - 1; i++)
     {
         for (int j = 0; j < E; j++)
@@ -52,15 +54,15 @@ int* bellmanFord(const Graph& graph, int src) {
             int w = graph.edges[j].w;
             int v = graph.edges[j].v;
 
-            if(*arrD[u] != std::numeric_limits<int>::max() && arrD[v] > (arrD[u] + w + v))
+            if(arrD[u] != infinity && arrD[v] > arrD[u] + w)
             {
                 arrD[v] = arrD[u] + w;
             }
         }
     }
-
+    
     // this is a stub; replace with a meaningful return value
-    return *arrD;
+    return D;
 }
 
 /**
