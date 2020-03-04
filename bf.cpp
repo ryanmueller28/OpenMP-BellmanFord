@@ -30,12 +30,12 @@ int* bellmanFord(const Graph& graph, int src) {
     int V = graph.V;
     int E = graph.E;
 
-    int arrD[V];
+    int *arrD[V];
 
     //intialize values to infinity
     for (int i = 0; i < V; i++)
     {
-        arrD[i] = std::numeric_limits<int>::max();
+        *arrD[i] = std::numeric_limits<int>::max();
     }
 
     arrD[src] = 0;
@@ -45,28 +45,22 @@ int* bellmanFord(const Graph& graph, int src) {
     
     for (int i = 0; i < V - 1; i++)
     {
-        for (int j = 0; j < E - 1; j++)
+        for (int j = 0; j < E; j++)
         {
             // get weight
-            Edge tempEdge = graph.edges[j];
+            int u = graph.edges[j].u;
+            int w = graph.edges[j].w;
+            int v = graph.edges[j].v;
 
-            int tempU = tempEdge.u;
-            int tempW = tempEdge.w;
-            int tempV = tempEdge.v;
-
-            //To Do: add check to ensure int_max doesn't roll over
-            //only care if (arr[j] + tempU + tempW) will roll over with INT_MAX
-
-            //relax
-            if (arrD[tempU] != std::numeric_limits<int>::max() && arrD[i] > (arrD[j] + tempU + tempW))
+            if(*arrD[u] != std::numeric_limits<int>::max() && arrD[v] > (arrD[u] + w + v))
             {
-                arrD[i] = arrD[j] + tempU + tempW;
-            }       
+                arrD[v] = arrD[u] + w;
+            }
         }
     }
 
     // this is a stub; replace with a meaningful return value
-    return arrD;
+    return *arrD;
 }
 
 /**
