@@ -30,9 +30,8 @@ int* bellmanFord(const Graph& graph, int src) {
     int V = graph.V;
     int E = graph.E;
 
-    int arrD[V];
-    int *D;
-    D = arrD;
+    int *arrD = new int[V];
+
 
     int infinity = std::numeric_limits<int>::max();
 
@@ -45,6 +44,7 @@ int* bellmanFord(const Graph& graph, int src) {
 
     // for loop 1, iterate vertices
     // for i in [0, |V| - 1]
+#pragma omp parallel for collapse(2)
     for (int i = 0; i < V - 1; i++)
     {
         for (int j = 0; j < E; j++)
@@ -62,7 +62,7 @@ int* bellmanFord(const Graph& graph, int src) {
     }
     
     // return D
-    return D;
+    return arrD;
 }
 
 /**
